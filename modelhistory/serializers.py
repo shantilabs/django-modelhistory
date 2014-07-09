@@ -16,7 +16,7 @@ class PickleSerializer:
 
 
 class JsonSerializer:
-    def __init__():
+    def __init__(self):
         import json
         from bson import json_util
         self.json = json
