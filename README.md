@@ -22,7 +22,7 @@ CustomerHistory = create_history_model(Customer, (
     'email',
 ))
 
-post_save.connect(CustomerHistory.save_diff, sender=CustomerHistory.model_class)
+post_save.connect(CustomerHistory.save_diff, sender=Customer)
 
 
 # admin.py (optional)

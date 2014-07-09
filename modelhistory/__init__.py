@@ -18,7 +18,7 @@ def create_history_model(model_class, fields, related_name='history'):
     ))
 
     def save_diff(sender, instance, **kwargs):
-        logger.info('save diff for %s', instance)
+        logger.debug('save diff for %s', instance)
         current_state = dict((k, getattr(instance, k, None)) for k in fields)
 
         prev_diff = first_or_none(history_class.objects.filter(instance=instance))
@@ -35,13 +35,13 @@ def create_history_model(model_class, fields, related_name='history'):
                 diff.append((k, v1, v2))
 
         if diff:
-            logger.info('diff: %r', diff)
+            logger.debug('diff: %r', diff)
             h = history_class(instance=instance)
             h.diff = diff
             h.state = current_state
             h.save()
         else:
-            logger.info('empty diff')
+            logger.debug('empty diff')
 
     # FIXME: doesnt work
     # post_save.connect(save_diff, sender=model_class)
