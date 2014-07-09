@@ -18,27 +18,30 @@ def create_history_model(model_class, fields, related_name='history'):
     ))
 
     def save_diff(sender, instance, **kwargs):
-    	logger.info('save diff for %s', instance)
+        logger.info('save diff for %s', instance)
+        current_state = dict((k, getattr(instance, k, None)) for k in fields)
 
         prev_diff = first_or_none(history_class.objects.filter(instance=instance))
-        if prev_diff:
-            prev = dict((k, v2) for k, _v1, v2 in prev_diff.diff)
+        if prev_diff and prev_diff.raw_state:
+            prev_state = prev_diff.state 
         else:
-            prev = {}
-
-    	logger.info('previous data: %s', prev)
+            prev_state = dict((k, None) for k in fields)
 
         diff = []
         for k in fields:
-            v1 = prev.get(k)
-            v2 = getattr(instance, k, None)
+            v1 = prev_state.get(k)
+            v2 = current_state.get(k)
             if v1 != v2:
                 diff.append((k, v1, v2))
 
         if diff:
+            logger.info('diff: %r', diff)
             h = history_class(instance=instance)
             h.diff = diff
+            h.state = current_state
             h.save()
+        else:
+            logger.info('empty diff')
 
     # FIXME: doesnt work
     # post_save.connect(save_diff, sender=model_class)
