@@ -3,7 +3,7 @@ from django.conf import settings
 from django.utils.module_loading import import_by_path
 
 
-serializer_name = settings.getattr('MODELHISTORY_SERIALIZER', 'modelhistory.serializers.JsonSerializer')
+serializer_name = getattr(settings, 'MODELHISTORY_SERIALIZER', 'modelhistory.serializers.JsonSerializer')
 serializer = import_by_path(serializer_name)()
 
 
