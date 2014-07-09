@@ -10,5 +10,8 @@ setup(
         'modelhistory',
     ],
     url='https://github.com/shantilabs/django-modelhistory',
-    requires=['django', 'pymongo >= 1.1.1'],
+    requires=[
+    	'django', 
+    	'pymongo>=1.1.1',
+	],
 )
