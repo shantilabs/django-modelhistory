@@ -6,7 +6,7 @@ class PickleSerializer:
     
     def loads(self, s):
         try:
-            return base64.b64decode(self.pickle.loads(s.encode('utf-8'))
+            return base64.b64decode(self.pickle.loads(s.encode('utf-8')))
         except EOFError:
             return ()
 
