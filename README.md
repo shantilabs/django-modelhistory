@@ -56,11 +56,11 @@ Sample template usage:
             </tr>
         </thead>
         <tbody>
-            {% for k, v1, v2 in h.diff %}
+            {% for param, old_value, new_value in h.diff %}
                 <tr>
-                    <th>{{ k }}</th>
-                    <td>{{ v1|default:'-' }}</td>
-                    <td>{{ v2|default:'-' }}</td>
+                    <th>{{ param }}</th>
+                    <td>{{ old_value|default:'-' }}</td>
+                    <td>{{ new_value|default:'-' }}</td>
                 </tr>
             {% endfor %}
         </tbody>
