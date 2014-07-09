@@ -45,3 +45,25 @@ MODELHISTORY_SERIALIZER = 'modelhistory.serializers.PickleSerializer'  # default
 #MODELHISTORY_SERIALIZER = 'modelhistory.serializers.JsonSerializer'  
  
 ```
+
+Sample template usage:
+```
+<table class="table table-condensed">
+    {% for h in customer.history.all %}
+        <thead>
+            <tr>
+                <th colspan="3" class="text-center">{{ h.datetime }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for k, v1, v2 in h.diff %}
+                <tr>
+                    <th>{{ k }}</th>
+                    <td>{{ v1|default:'-' }}</td>
+                    <td>{{ v2|default:'-' }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    {% endfor %}
+</table>
+```
