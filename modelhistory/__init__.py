@@ -1,8 +1,13 @@
+import logging
+
 from django.db.models import ForeignKey
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 from models import AbstractHistoryModel
+
+
+logger = logging.getLogger(__name__)
 
 
 def create_history_model(model_class, fields, related_name='history'):
@@ -13,11 +18,15 @@ def create_history_model(model_class, fields, related_name='history'):
     ))
 
     def save_diff(sender, instance, **kwargs):
-        prev = first_or_none(history_class.objects.filter(instance=instance))
-        if prev:
-            prev = dict((k, v2) for k, v1, v2 in prev.get_diff())
+    	logger.info('save diff for %s', instance)
+
+        prev_diff = first_or_none(history_class.objects.filter(instance=instance))
+        if prev_diff:
+            prev = dict((k, v2) for k, _v1, v2 in prev_diff.diff)
         else:
             prev = {}
+
+    	logger.info('previous data: %s', prev)
 
         diff = []
         for k in fields:
@@ -36,7 +45,7 @@ def create_history_model(model_class, fields, related_name='history'):
 
     # hack
     history_class.save_diff = staticmethod(save_diff)
-    history_class.model_class = model_class
+    history_class.model_class = models
 
     return history_class
 
