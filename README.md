@@ -41,7 +41,7 @@ admin.site.register(models.Customer, CustomerAdmin)
 
 # settings.py (optional)
 
-MODELHISTORY_SERIALIZER = 'modelhistory.serializers.JsonSerializer'  # default
-#MODELHISTORY_SERIALIZER = 'modelhistory.serializers.PickleSerializer'
-
+MODELHISTORY_SERIALIZER = 'modelhistory.serializers.PickleSerializer'  # default
+#MODELHISTORY_SERIALIZER = 'modelhistory.serializers.JsonSerializer'  
+ 
 ```

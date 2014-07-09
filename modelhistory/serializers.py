@@ -1,18 +1,17 @@
-
+import cPickle
+import base64
+    
 
 class PickleSerializer:
-    def __init__(self):
-        import cPickle
-        self.pickle = cPickle 
-
+    
     def loads(self, s):
         try:
-            return self.pickle.loads(s.encode('utf-8'))
+            return base64.b64decode(self.pickle.loads(s.encode('utf-8'))
         except EOFError:
             return ()
 
     def dumps(self, val):
-        return self.pickle.dumps(val)
+        return base64.b64encode(self.pickle.dumps(val))
 
 
 class JsonSerializer:
