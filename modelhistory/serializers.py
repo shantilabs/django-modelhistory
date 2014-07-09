@@ -1,9 +1,9 @@
 
 
 class PickleSerializer:
-	def __init__(self):
-		import cPickle
-		self.pickle = cPickle 
+    def __init__(self):
+        import cPickle
+        self.pickle = cPickle 
 
     def loads(self, s):
         try:
@@ -16,11 +16,11 @@ class PickleSerializer:
 
 
 class JsonSerializer:
-	def __init__():
-	    import json
-	    from from bson import json_util
-		self.json = json
-		self.json_util = json_util
+    def __init__():
+        import json
+        from bson import json_util
+        self.json = json
+        self.json_util = json_util
 
     def loads(self, s):
         return self.json.loads(s or '[]', object_hook=self.json_util.object_hook)
