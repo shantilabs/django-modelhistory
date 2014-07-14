@@ -6,7 +6,7 @@ pip install -e git://github.com/shantilabs/django-modelhistory.git#egg=holidays
 ```
 
 Usage:
-```!python
+```python
 # models.py
 from django.db import models
 from django.db.models.signals import post_save
@@ -46,8 +46,8 @@ MODELHISTORY_SERIALIZER = 'modelhistory.serializers.PickleSerializer'  # default
  
 ```
 
-Sample template usage:
-```
+Template:
+```html
 <table class="table table-condensed">
     {% for h in customer.history.all %}
         <thead>
