@@ -2,7 +2,7 @@ Model changes tracking.
 
 Install.
 ```!shell
-pip install -e git://github.com/shantilabs/django-modelhistory.git#egg=holidays
+pip install -e git://github.com/shantilabs/django-modelhistory.git#egg=modelhistory
 ```
 
 Usage:
